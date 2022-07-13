@@ -9,6 +9,6 @@ return [
     ],
     'import' => [
         'success' => 'New batch of access codes were successfully imported.',
-        'error' => 'Something didn\'t work out. Please double-check the file for any existing duplicate code.',
+        'error' => 'Some access codes already imported in the database. Please double-check the file',
     ],
 ];

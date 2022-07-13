@@ -44,6 +44,6 @@
 
     input[type="file"]::--webkit-file-upload-button,
     input[type="file"]::file-selector-button {
-        @apply rounded-md text-white bg-primary-600 hover:bg-primary-700  text-sm cursor-pointer border border-transparent;
+        @apply rounded-md px-2 text-white bg-primary-600 hover:bg-primary-700 tracking-wider text-xs cursor-pointer border border-transparent;
     }
 }

@@ -46,7 +46,7 @@ class UpdateProfileTest extends TestCase
         $this->loggedInAccount();
 
         $this
-            ->post(route('profile.changePassword'), [
+            ->post(route('profile.change_password'), [
                 'current_password' => 'password',
                 'password' => 'someP@ssword',
                 'password_confirmation' => 'someP@ssword',

@@ -19,6 +19,9 @@
                             <x-nav.link :href="route('home')" :active="request()->routeIs('home')">
                                 Home
                             </x-nav.link>
+                            <x-nav.link :href="route('access_codes.index')" :active="request()->routeIs('access_codes.index')">
+                                Access Codes
+                            </x-nav.link>
                         </div>
                     </div>
 
@@ -76,6 +79,9 @@
                 <div class="pt-2 pb-3 space-y-1">
                     <x-nav.responsive :href="route('home')" :active="request()->routeIs('home')">
                         Home
+                    </x-nav.responsive>
+                    <x-nav.responsive :href="route('access_codes.index')" :active="request()->routeIs('access_codes.index')">
+                        Access Codes
                     </x-nav.responsive>
                 </div>
 

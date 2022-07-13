@@ -30,24 +30,21 @@
                                                 <div class="col-span-6 sm:col-span-3">
                                                     <x-label for="last_name" />
                                                     <x-input name="last_name" id="last_name" type="text"
-                                                        :value="auth()->user()->last_name" class="block mt-1 w-full"
-                                                        required />
+                                                        :value="auth()->user()->last_name" class="block mt-1 w-full" required />
                                                     <x-error field="last_name" />
                                                 </div>
 
                                                 <div class="col-span-6 sm:col-span-3">
                                                     <x-label for="first_name" />
                                                     <x-input name="first_name" id="first_name" type="text"
-                                                        :value="auth()->user()->first_name" class="block mt-1 w-full"
-                                                        required />
+                                                        :value="auth()->user()->first_name" class="block mt-1 w-full" required />
                                                     <x-error field="first_name" />
                                                 </div>
 
                                                 <div class="col-span-6 sm:col-span-4">
                                                     <x-label for="email_address" />
                                                     <x-input name="email" id="email_address" type="email"
-                                                        :value="auth()->user()->email" class="block mt-1 w-full"
-                                                        required />
+                                                        :value="auth()->user()->email" class="block mt-1 w-full" required />
                                                     <x-error field="email" />
                                                 </div>
                                             </div>
@@ -78,7 +75,7 @@
                                 </div>
                             </div>
                             <div class="mt-5 md:mt-0 md:col-span-2">
-                                <form action="{{ route('profile.changePassword') }}" method="POST">
+                                <form action="{{ route('profile.change_password') }}" method="POST">
                                     @csrf
                                     <div class="shadow overflow-hidden sm:rounded-md">
                                         <div class="px-4 py-5 bg-white sm:p-6">

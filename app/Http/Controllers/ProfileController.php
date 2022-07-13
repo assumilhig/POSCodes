@@ -31,7 +31,7 @@ class ProfileController extends Controller
         return redirect()->route('profile.index');
     }
 
-    public function changePassword(UpdatePasswordRequest $request)
+    public function change_password(UpdatePasswordRequest $request)
     {
         $this->userService->update($request->only('password'));
 
