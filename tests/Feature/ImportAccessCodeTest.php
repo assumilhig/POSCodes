@@ -15,7 +15,7 @@ class ImportAccessCodeTest extends TestCase
     {
         $this->loggedInAccount();
 
-        $this->get(route('access_codes.index'))->assertOk();
+        $this->get(route('access_codes.import'))->assertOk();
 
         Storage::fake('uploads');
 
@@ -25,7 +25,7 @@ class ImportAccessCodeTest extends TestCase
 
         $this
             ->post(
-                route('access_codes.store'),
+                route('access_codes.import'),
                 [
                     'access_code_file' => UploadedFile::fake()->createWithContent(
                         'test.csv',
@@ -34,7 +34,7 @@ class ImportAccessCodeTest extends TestCase
                 ]
             )
             ->assertSessionHas('success')
-            ->assertRedirect(route('access_codes.index'));
+            ->assertRedirect(route('access_codes.import'));
 
         $this->assertDatabaseHas('access_types', ['description' => 'HQ']);
         $this->assertDatabaseHas('access_codes', ['codes' => 'value2']);
@@ -46,7 +46,7 @@ class ImportAccessCodeTest extends TestCase
     {
         $this->loggedInAccount();
 
-        $this->get(route('access_codes.index'))->assertOk();
+        $this->get(route('access_codes.import'))->assertOk();
 
         Storage::fake('uploads');
 
@@ -56,7 +56,7 @@ class ImportAccessCodeTest extends TestCase
 
         $this
             ->post(
-                route('access_codes.store'),
+                route('access_codes.import'),
                 [
                     'access_code_file' => UploadedFile::fake()->createWithContent(
                         'test.csv',
@@ -65,7 +65,7 @@ class ImportAccessCodeTest extends TestCase
                 ]
             )
             ->assertSessionHas('error')
-            ->assertRedirect(route('access_codes.index'));
+            ->assertRedirect(route('access_codes.import'));
     }
 
     public function test_all_available_access_must_be_expired_when_importing_new_batch_of_access_codes()
@@ -80,7 +80,7 @@ class ImportAccessCodeTest extends TestCase
 
         $this
             ->post(
-                route('access_codes.store'),
+                route('access_codes.import'),
                 [
                     'access_code_file' => UploadedFile::fake()->createWithContent(
                         'test.csv',
@@ -89,7 +89,7 @@ class ImportAccessCodeTest extends TestCase
                 ]
             )
             ->assertSessionHas('success')
-            ->assertRedirect(route('access_codes.index'));
+            ->assertRedirect(route('access_codes.import'));
 
         $row1 = 'HQ,value4';
         $row2 = 'MANAGER,value5';
@@ -97,7 +97,7 @@ class ImportAccessCodeTest extends TestCase
 
         $this
             ->post(
-                route('access_codes.store'),
+                route('access_codes.import'),
                 [
                     'access_code_file' => UploadedFile::fake()->createWithContent(
                         'test.csv',
@@ -106,7 +106,7 @@ class ImportAccessCodeTest extends TestCase
                 ]
             )
             ->assertSessionHas('success')
-            ->assertRedirect(route('access_codes.index'));
+            ->assertRedirect(route('access_codes.import'));
 
         $this->assertDatabaseHas('access_types', ['description' => 'HQ']);
         $this->assertDatabaseHas('access_codes', ['codes' => 'value1', 'status' => AccessCode::EXPIRED]);

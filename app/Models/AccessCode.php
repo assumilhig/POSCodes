@@ -29,4 +29,9 @@ class AccessCode extends Model
     {
         return $this->belongsTo(AccessType::class, 'access_type_id');
     }
+
+    public function issuedBy()
+    {
+        return $this->belongsTo(User::class, 'issued_by');
+    }
 }

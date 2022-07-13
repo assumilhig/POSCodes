@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Models\AccessCode;
 use App\Models\AccessType;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\SimpleExcel\SimpleExcelReader;
@@ -39,5 +40,24 @@ class AccessCodeRepository extends Repository
             DB::rollBack();
             $this->error(__('messages.import.error'));
         }
+    }
+
+    public function getAccessCodeByType($type)
+    {
+        $result = $this->model->whereHas('type', function ($accessType) use ($type) {
+            $accessType->where('description', $type);
+        })->where('status', $this->model::AVAILABLE)->first();
+
+        return $result;
+    }
+
+    public function updateIssuedAccessCode($codes)
+    {
+        $result = $this->model->where('codes', $codes)->update([
+            'status' =>  $this->model::ISSUED,
+            'issued_by' => Auth::user()->id,
+        ]);
+
+        return $result;
     }
 }

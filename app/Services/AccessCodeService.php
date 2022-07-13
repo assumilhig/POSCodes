@@ -19,4 +19,14 @@ class AccessCodeService extends Services
     {
         return $this->repository->createAccessCodeWithType($data);
     }
+
+    public function getAccessCodeByType($type)
+    {
+        return $this->repository->getAccessCodeByType($type);
+    }
+
+    public function updateIssuedAccessCode($codes)
+    {
+        return $this->repository->updateIssuedAccessCode($codes);
+    }
 }

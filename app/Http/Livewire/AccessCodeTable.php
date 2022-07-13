@@ -30,7 +30,8 @@ class AccessCodeTable extends DataTableComponent
         return [
             Column::make('Type', 'type.description')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->eagerLoadRelations(), // Adds with('address') to the query
             Column::make('Codes', 'codes')
                 ->sortable()
                 ->searchable(),
@@ -63,8 +64,10 @@ class AccessCodeTable extends DataTableComponent
             Column::make('Sales Invoice', 'transaction_number')
                 ->sortable()
                 ->collapseOnTablet(),
-            Column::make('Issued By', 'issued_by')
+            Column::make('Issued By')
+                ->format(fn ($value, $row, Column $column) => $row->issuedBy->name)
                 ->sortable()
+                ->eagerLoadRelations()
                 ->collapseOnTablet(),
             Column::make('Date Created', 'created_at')
                 ->sortable()
@@ -116,7 +119,6 @@ class AccessCodeTable extends DataTableComponent
     public function builder(): Builder
     {
         return $this->model::query()
-            ->with('type')
             ->orderByDesc('access_type_id')
             ->orderBy('status');
     }

@@ -6,6 +6,7 @@ return [
     'pos_codes' => [
         'success' => 'Your :type access code is :codes.',
         'error' => 'There is no :type access code available. Please contact the POS provider or the Head Office.',
+        'no_available' => 'There is no available access code at this moment. Please contact the POS provider or the Head Office.'
     ],
     'import' => [
         'success' => 'New batch of access codes were successfully imported.',

@@ -18,13 +18,13 @@ class ImportAccessCodeController extends Controller
 
     public function index()
     {
-        return view('access_codes.index');
+        return view('access_codes.import');
     }
 
     public function store(ImportAccessCodeRequest $request)
     {
         $this->accessCodeService->createAccessCodeWithType((string) $request->access_code_file);
 
-        return to_route('access_codes.index');
+        return to_route('access_codes.import');
     }
 }

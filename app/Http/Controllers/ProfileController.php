@@ -28,7 +28,7 @@ class ProfileController extends Controller
 
         $this->success(__('messages.success', ['title' => 'personal information']));
 
-        return redirect()->route('profile.index');
+        return to_route('profile.index');
     }
 
     public function change_password(UpdatePasswordRequest $request)
@@ -37,6 +37,6 @@ class ProfileController extends Controller
 
         $this->success(__('messages.success', ['title' => 'password']));
 
-        return redirect()->route('profile.index');
+        return to_route('profile.index');
     }
 }

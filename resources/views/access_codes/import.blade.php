@@ -14,7 +14,7 @@
                     <div>
                         <h2 class="text-lg font-medium leading-6 text-gray-900">Import Access Code</h2>
                         <div class="mt-5">
-                            <form action="{{ route('access_codes.store') }}" method="post"
+                            <form action="{{ route('access_codes.import') }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
 

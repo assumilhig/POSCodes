@@ -45,6 +45,9 @@ Route::middleware('auth')->group(function () {
         Route::post('profile/change-password', [Controllers\ProfileController::class, 'change_password'])->name('profile.change_password');
     });
 
-    Route::get('access-codes', [Controllers\ImportAccessCodeController::class, 'index'])->name('access_codes.index');
-    Route::post('access-codes/import', [Controllers\ImportAccessCodeController::class, 'store'])->name('access_codes.store');
+    Route::get('access-codes/import', [Controllers\ImportAccessCodeController::class, 'index'])->name('access_codes.import');
+    Route::post('access-codes/import', [Controllers\ImportAccessCodeController::class, 'store']);
+
+    Route::get('access-codes/issue', [Controllers\AccessCodeController::class, 'issue'])->name('access_codes.issue');
+    Route::post('access-codes/issue', [Controllers\AccessCodeController::class, 'store']);
 });
