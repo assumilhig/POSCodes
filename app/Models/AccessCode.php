@@ -32,6 +32,6 @@ class AccessCode extends Model
 
     public function issuedBy()
     {
-        return $this->belongsTo(User::class, 'issued_by');
+        return $this->belongsTo(User::class, 'issued_by')->withDefault();
     }
 }

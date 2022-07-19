@@ -52,7 +52,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Interact with the user's first name.
+     * Interact with the user's password.
      */
     protected function password(): Attribute
     {
