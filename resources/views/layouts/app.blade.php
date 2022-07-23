@@ -16,37 +16,41 @@
                         </div>
 
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <x-nav.link :href="route('home')" :active="request()->routeIs('home')">
-                                Home
-                            </x-nav.link>
-                            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                                <x-dropdown align="left" width="48">
-                                    <x-slot name="trigger">
-                                        <button
-                                            class="flex items-center text-sm font-medium text-secondary-500 hover:text-secondary-700 hover:border-secondary-300 focus:outline-none focus:text-secondary-700 focus:border-secondary-300 transition duration-150 ease-in-out">
-                                            <div>Access Codes</div>
-
-                                            <div class="ml-1">
-                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                        </button>
-                                    </x-slot>
-
-                                    <x-slot name="content">
-                                        <a class="dropdown link" href="{{ route('access_codes.issue') }}">
-                                            Issue Code
-                                        </a>
-                                        <a class="dropdown link" href="{{ route('access_codes.import') }}">
-                                            Import New Codes
-                                        </a>
-                                    </x-slot>
-                                </x-dropdown>
-                            </div>
+                            @foreach ($sharedNavigations as $navigation)
+                                @if (!$navigation['with_dropdown'])
+                                    @foreach ($navigation['content'] as $content)
+                                        <x-nav.link :href="$content['href']" :active="$content['active']">
+                                            {{ $content['name'] }}
+                                        </x-nav.link>
+                                    @endforeach
+                                @else
+                                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                                        <x-dropdown :align="$navigation['align']" width="48">
+                                            <x-slot name="trigger">
+                                                <button
+                                                    class="flex items-center text-sm font-medium text-secondary-500 hover:text-secondary-700 hover:border-secondary-300 focus:outline-none focus:text-secondary-700 focus:border-secondary-300 transition duration-150 ease-in-out">
+                                                    <div>{{ $navigation['parent_name'] }}</div>
+                                                    <div class="ml-1">
+                                                        <svg class="fill-current h-4 w-4"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd"
+                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                    </div>
+                                                </button>
+                                            </x-slot>
+                                            <x-slot name="content">
+                                                @foreach ($navigation['content'] as $content)
+                                                    <a class="dropdown link" href="{{ $content['href'] }}">
+                                                        {{ $content['name'] }}
+                                                    </a>
+                                                @endforeach
+                                            </x-slot>
+                                        </x-dropdown>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
 
@@ -69,9 +73,11 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <a class="dropdown link" href="{{ route('profile.index') }}">
-                                    Profile
-                                </a>
+                                @foreach ($sharedProfileNavigations as $profile)
+                                    <a class="dropdown link" href="{{ $profile['href'] }}">
+                                        {{ $profile['name'] }}
+                                    </a>
+                                @endforeach
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <a class="dropdown link" href="{{ route('logout') }}"
@@ -102,15 +108,22 @@
             <!-- Responsive Navigation Menu -->
             <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-nav.responsive :href="route('home')" :active="request()->routeIs('home')">
-                        Home
-                    </x-nav.responsive>
-                    <x-nav.responsive :href="route('access_codes.issue')" :active="request()->routeIs('access_codes.issue')">
-                        Issue Code
-                    </x-nav.responsive>
-                    <x-nav.responsive :href="route('access_codes.import')" :active="request()->routeIs('access_codes.import')">
-                        Import New Codes
-                    </x-nav.responsive>
+                    @foreach ($sharedNavigations as $navigation)
+                        @if ($navigation['with_dropdown'])
+                            <div class="pt-4 pb-1 border-t border-secondary-200">
+                                <div class="px-2">
+                                    <div class="font-medium text-sm text-secondary-500">
+                                        {{ $navigation['parent_name'] }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @foreach ($navigation['content'] as $content)
+                            <x-nav.responsive :href="$content['href']" :active="$content['active']">
+                                {{ $content['name'] }}
+                            </x-nav.responsive>
+                        @endforeach
+                    @endforeach
                 </div>
 
                 <!-- Responsive Settings Options -->
@@ -121,9 +134,11 @@
                     </div>
 
                     <div class="mt-3 space-y-1">
-                        <x-nav.responsive :href="route('profile.index')">
-                            Profile
-                        </x-nav.responsive>
+                        @foreach ($sharedProfileNavigations as $profile)
+                            <x-nav.responsive :href="$profile['href']">
+                                {{ $profile['name'] }}
+                            </x-nav.responsive>
+                        @endforeach
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-nav.responsive :href="route('logout')"

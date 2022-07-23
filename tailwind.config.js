@@ -14,7 +14,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                secondary: colors.blueGray,
+                secondary: colors.slate,
                 primary: colors.indigo,
                 success: colors.green,
                 warning: colors.yellow,
