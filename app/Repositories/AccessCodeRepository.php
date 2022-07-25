@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Enum\AccessCodeStatusEnum;
 use App\Models\AccessCode;
 use App\Models\AccessType;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class AccessCodeRepository extends Repository
     {
         try {
             DB::beginTransaction();
-            AccessCode::where('status', AccessCode::AVAILABLE)->update(['status' => AccessCode::EXPIRED]);
+            AccessCode::where('status', AccessCodeStatusEnum::AVAILABLE)->update(['status' => AccessCodeStatusEnum::EXPIRED]);
 
             SimpleExcelReader::create($access_code_file, 'csv')
                 ->noHeaderRow()
@@ -46,7 +47,7 @@ class AccessCodeRepository extends Repository
     {
         $result = $this->model->whereHas('type', function ($accessType) use ($type) {
             $accessType->where('description', $type);
-        })->where('status', $this->model::AVAILABLE)->first();
+        })->where('status', AccessCodeStatusEnum::AVAILABLE)->first();
 
         return $result;
     }
@@ -54,7 +55,7 @@ class AccessCodeRepository extends Repository
     public function updateIssuedAccessCode($codes)
     {
         $result = $this->model->where('codes', $codes)->update([
-            'status' =>  $this->model::ISSUED,
+            'status' => AccessCodeStatusEnum::ISSUED,
             'issued_by' => Auth::user()->id,
         ]);
 

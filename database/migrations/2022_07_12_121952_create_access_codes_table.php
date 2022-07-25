@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(AccessType::class)->constrained()->cascadeOnDelete();
             $table->string('codes')->unique();
-            $table->string('status')->default(0)->comment('0|available 1|Issued 2|Used 3|Expired');
+            $table->string('status')->default(0);
             $table->string('store_code')->nullable();
             $table->string('transaction_number')->nullable();
             $table->integer('register_no')->nullable();

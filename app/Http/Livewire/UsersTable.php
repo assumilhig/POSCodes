@@ -11,23 +11,13 @@ class UsersTable extends DataTable
 {
     protected $model = User::class;
 
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
-    }
-
     public function columns(): array
     {
         return [
-            Column::make('Last Name', 'last_name')
-                ->sortable(),
-            Column::make('First Name', 'first_name')
-                ->sortable(),
-            Column::make('Email Address', 'email')
-                ->sortable()
-                ->collapseOnTablet(),
-            Column::make('Status', 'inactive')
-                ->sortable()
+            Column::make('Last Name', 'last_name')->searchable()->sortable(),
+            Column::make('First Name', 'first_name')->searchable()->sortable(),
+            Column::make('Email Address', 'email')->searchable()->sortable()->collapseOnTablet(),
+            Column::make('Status', 'inactive')->searchable()->sortable()
                 ->format(function ($value) {
                     if (! $value) {
                         return '<span class="badge badge-success">Active</span>';
@@ -37,12 +27,8 @@ class UsersTable extends DataTable
                 })
                 ->html()
                 ->collapseOnTablet(),
-            Column::make('Date Approved', 'approve_at')
-                ->sortable()
-                ->collapseOnTablet(),
-            Column::make('Date Created', 'created_at')
-                ->sortable()
-                ->collapseOnTablet(),
+            Column::make('Date Approved', 'approve_at')->searchable()->sortable()->collapseOnTablet(),
+            Column::make('Date Created', 'created_at')->searchable()->sortable()->collapseOnTablet(),
         ];
     }
 }

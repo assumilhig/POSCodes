@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enum\AccessCodeStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AccessCode extends Model
 {
     use HasFactory;
-
-    public const AVAILABLE = 0;
-    public const ISSUED = 1;
-    public const USED = 2;
-    public const EXPIRED = 3;
 
     protected $fillable = [
         'codes',
@@ -23,6 +19,10 @@ class AccessCode extends Model
         'transaction_number',
         'register_no',
         'issued_by',
+    ];
+
+    protected $casts = [
+        'status' => AccessCodeStatusEnum::class,
     ];
 
     public function type()
