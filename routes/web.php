@@ -50,4 +50,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('access-codes/issue', [Controllers\AccessCodeController::class, 'issue'])->name('access_codes.issue');
     Route::post('access-codes/issue', [Controllers\AccessCodeController::class, 'store']);
+
+    Route::get('users', [Controllers\UsersController::class, 'index'])->name('users.index');
 });

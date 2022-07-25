@@ -83,8 +83,8 @@ class ViewServiceProvider extends ServiceProvider
                 'content' => [
                     [
                         'name' => 'Users',
-                        'href' => '',
-                        'active' => '',
+                        'href' => route('users.index'),
+                        'active' => request()->routeIs('users.index'),
                     ],
                     [
                         'name' => 'Import Users',

@@ -7,18 +7,13 @@ namespace App\Http\Livewire;
 use App\Models\AccessCode;
 use App\Models\AccessType;
 use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
-class AccessCodeTable extends DataTableComponent
+class AccessCodeTable extends DataTable
 {
     protected $model = AccessCode::class;
-
-    public bool $dumpFilters = false;
-
-    public array $perPageAccepted = [25, 50, 100, 200];
 
     public function configure(): void
     {
