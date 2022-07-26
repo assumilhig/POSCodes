@@ -10,7 +10,7 @@ class DataTable extends DataTableComponent
 {
     public bool $dumpFilters = false;
 
-    public array $perPageAccepted = [25, 50, 100, 200];
+    public array $perPageAccepted = [25, 50, 100, 250, 500];
 
     public function configure(): void
     {
