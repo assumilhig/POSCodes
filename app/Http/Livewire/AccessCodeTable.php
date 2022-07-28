@@ -20,14 +20,22 @@ class AccessCodeTable extends DataTable
 
     protected $model = AccessCode::class;
 
+    public ?string $defaultSortColumn = 'status';
+
+    public string $defaultSortDirection = 'asc';
+
+    public ?string $pageName = 'access_codes';
+
     public function columns(): array
     {
         return [
             Column::make('Type', 'type.description')
+                ->sortable()
                 ->searchable()
                 ->eagerLoadRelations(),
             Column::make('Codes', 'codes')->sortable()->searchable(),
             Column::make('Status', 'status')
+                ->sortable()
                 ->searchable()
                 ->collapseOnTablet()
                 ->format(function ($value) {
@@ -39,9 +47,14 @@ class AccessCodeTable extends DataTable
                     };
                 })
                 ->html(),
-            Column::make('Store', 'store_code')->collapseOnTablet(),
-            Column::make('Sales Invoice', 'transaction_number')->collapseOnTablet(),
+            Column::make('Store', 'store_code')
+                ->sortable()
+                ->collapseOnTablet(),
+            Column::make('Sales Invoice', 'transaction_number')
+                ->sortable()
+                ->collapseOnTablet(),
             Column::make('Issued By')
+                ->sortable()
                 ->format(fn ($value, $row, Column $column) => $row->issuedBy->name)
                 ->eagerLoadRelations()
                 ->collapseOnTablet(),
@@ -75,6 +88,6 @@ class AccessCodeTable extends DataTable
 
     public function builder(): Builder
     {
-        return $this->getModel()::query()->orderByDesc('access_type_id')->orderBy('status');
+        return $this->getModel()::query()->orderByDesc('access_type_id');
     }
 }
